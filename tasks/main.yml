@@ -1,0 +1,53 @@
+---
+# tasks file for ansible-role-win-BOLID-installation
+- name: Create BOLID directory
+  ansible.windows.win_file:
+    path: C:\Windows\Temp\BOLID
+    state: directory
+
+- name: BOLID installation | Download ARMC2000 to temp directory
+  ansible.windows.win_get_url:
+    url: "{{ APMC2000_url }}"
+    dest: C:\Windows\Temp\BOLID\armc2000.exe
+
+- name: BOLID installation | Download PPROG to temp directory
+  ansible.windows.win_get_url:
+    url: "{{ PPROG_url }}"
+    dest: C:\Windows\Temp\BOLID\pprog.zip
+
+- name: BOLID installation | Download UPROG to temp directory
+  ansible.windows.win_get_url:
+    url: "{{ UPROG_url }}"
+    dest: C:\Windows\Temp\BOLID\uprog.zip
+
+- name: BOLID installation | Unarchive pprog.zip on Windows
+  community.windows.win_unzip:
+    src: C:\Windows\Temp\BOLID\pprog.zip
+    dest: C:\Windows\Temp\BOLID\
+    creates: C:\Windows\Temp\BOLID\instpprog.exe
+    delete_archive: no
+
+- name: BOLID installation | Unarchive uprog.zip on Windows
+  community.windows.win_unzip:
+    src: C:\Windows\Temp\BOLID\uprog.zip
+    dest: C:\Windows\Temp\BOLID\
+    creates: C:\Windows\Temp\BOLID\InstallUProg.exe
+    delete_archive: no
+
+- name: BOLID installation | Installation armc2000
+  ansible.windows.win_package:
+    path: C:\Windows\Temp\BOLID\armc2000.exe
+    arguments: "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-"
+    state: present
+
+- name: BOLID installation | Installation pprog
+  ansible.windows.win_package:
+    path: C:\Windows\Temp\BOLID\instpprog.exe
+    arguments: "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-"
+    state: present
+
+- name: BOLID installation | Installation uprog
+  ansible.windows.win_package:
+    path: C:\Windows\Temp\BOLID\InstallUProg.exe
+    arguments: "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-"
+    state: present

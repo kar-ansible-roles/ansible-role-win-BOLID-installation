@@ -1,0 +1,18 @@
+galaxy_info:
+  role_name: BOLID
+  author: karsak4747
+  description: Ansible role for installation the BOLID programs (APVC2000, PPROG, UPROG).
+  company: Karo
+
+  license: "license (BSD, MIT)"
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Windows
+      versions: [all]
+
+  galaxy_tags: 
+    - BOLID
+
+dependencies: []

@@ -1,0 +1,5 @@
+---
+# defaults file for ansible-role-win-BOLID-installation
+APMC2000_url: https://bolid.ru/files/373/566/arm_s2.exe
+PPROG_url: https://bolid.ru/files/373/566/instpprog_3.15.1.zip
+UPROG_url: https://bolid.ru/files/373/566/InstallUProg_4.1.9.zip
